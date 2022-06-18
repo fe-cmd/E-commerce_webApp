@@ -60,9 +60,8 @@ def account_register(request):
                   [user],
                   connection=connection
                )
-            
-            user.send(fail_silently=False)             
             messages.success(request, 'Registered successfully and activation link sent to your email to activate.')
+            user.send(fail_silently=False)             
             connection.close()
             return redirect('account:register')
             
