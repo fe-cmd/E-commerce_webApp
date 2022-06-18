@@ -4,11 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+from sqlite3 import connect
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.urls import reverse
+from django.core.mail import get_connection
 from orders.views import user_orders
 from store.models import Product
 from orders.models import Order
