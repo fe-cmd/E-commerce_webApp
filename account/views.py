@@ -51,15 +51,15 @@ def account_register(request):
                 'token': account_activation_token.make_token(user),
             })
             
-            email = mail.EmailMessage(
+            user = mail.EmailMessage(
                   subject,
                   message,
                   'oluferonmijoshua@gmail.com',
-                  [email],
+                  [user],
                   connection=connection
                )
             
-            email.send(fail_silently=False)             
+            user.send(fail_silently=False)             
             messages.success(request, 'Registered successfully and activation link sent to your email to activate.')
             connection.close()
             return redirect('account:register')
