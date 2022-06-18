@@ -1,0 +1,124 @@
+{% extends "../store/base.html" %}
+{% load static %}
+{% block title %}Delivery Address{%endblock %}
+{% block content %}
+
+<div id="loader-wrapper">
+  <div id="loader">
+      <h1 style="color: orangered;" class="bud">Welcome!!!</h1>
+      <i style="color: orangered; font-size:100px;" class="fa fa-cog"></i>
+  </div>
+  <div class="loader-section section-left">
+      <marquee direction="left">
+          <h1 style="color: rgb(18, 139, 238);">You are Welcome here @
+              <span style="color: orangered;"><b> engisolE-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+  <div class="loader-section section-right">
+      <marquee direction="right">
+          <h1 style="color: rgb(18, 139, 238);">Your most efficient fastest and user friendly
+              <span style="color: orangered;"><b> E-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+</div>
+
+<main>
+    <div class="container">
+        <div class="col-12">
+          <h1 class="h2">Delivery Address</h1>
+        </div>
+        <div class="col-12">
+          <p>Please select your delivery address</p>
+        </div>
+        <hr />
+      </div>
+      
+      
+      <div class="container">
+        <div class="des row g-3">
+          {% if addresses|length == 0 %}
+          <div class="des col-12">There are no delivery addresses, <a href="{% url 'account:add_address' %}">add address</a></div>
+          {% else %}
+          <div class="des col-md-4 col-lg-4 order-md-last p-0 order-3">
+          
+      <div class="d-flex bd-highlight ms-0">
+        <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
+        <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="sub_total"class="fw-bold h5">{{cart.get_subtotal_price}}</span></div>
+      </div>
+      <div class="d-flex bd-highlight">
+        <div class="p-2 flex-grow-1 bd-highlight">Delivery Cost:</div>
+        <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="delivery_price" class="fw-bold h5">{{cart.get_delivery_price}}</span></div>
+      </div>
+      <div class="d-flex bd-highlight">
+        <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
+        <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="total"class="fw-bold h5">{{cart.get_total_price}}</span></div>
+      </div>
+      <a role="button" href="{% url 'checkout:payment_selection' %}" class="btn btn-success fw-bold w-100" type="button">Pay Securely</a>
+      </div>
+          
+          <div class="des col-md-7 col-lg-8">
+            {% for address in addresses %}
+            {% if not address.default %}
+              <h1 class="h5 pt-4">Other Addresses</h1>
+            {% endif %}
+            <div class="des card mb-3 border-1 rounded-0 product-item me-md-4" data-index="{{option.id}}">
+              <div class="row g-0">
+                <div class="col">
+                  <div class="des card pb-3 rounded-0">
+                    <div class="min card-header small">
+                      {% if address.default %}
+                      Selected
+                      {% endif %}
+                      &nbsp;
+                    </div>
+                    <div class="card-body small pb-1">
+                      <p class="dash1 card-text m-0 fw-bold">{{address.full_name}}</p>
+                      <p class="dash1 card-text m-0">{{address.address_line}}</p>
+                      <p class="dash1 card-text m-0">{{address.address_line2}}</p>
+                      <p class="dash1 card-text m-0">{{address.town_city}}</p>
+                      <p class="dash1 card-text m-0">{{address.postcode}}</p>
+                      <p class="dash1 card-text m-0">Phone number: {{address.phone}}</p>
+                      <div class="pt-5">
+                        <a href="{% url 'account:edit_address' address.id %}" class="text-decoration-none">Edit</a>
+                        {% if not address.default %}
+                        | <a href="{% url 'account:set_default' address.id %}" class="text-decoration-none">Select</a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      
+      </div>
+</main>
+
+<script>
+  $(document).ready(function() {
+
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 5000);
+  
+  });
+
+  //light/dark mode theme
+document.querySelector('.checkbox').addEventListener('change',()=>{
+  document.querySelectorAll('body').forEach(ele=>{
+    ele.classList.toggle('night');
+  })
+  document.querySelectorAll('.des').forEach(ele=>{
+      ele.classList.toggle('night');
+    })
+});
+
+
+</script>
+{% endblock %}

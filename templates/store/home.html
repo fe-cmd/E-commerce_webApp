@@ -1,0 +1,569 @@
+{% extends "./base.html" %} 
+{% load static %} 
+{% block title %}engisolE-commerceStore{% endblock %} 
+
+{% block content %} 
+<style>
+.showcart1 {
+    position: absolute;
+    color: rgb(18, 139, 238);
+    transform: translate(80%, 30%);
+    animation: animate .7s infinite ease-in-out;
+}
+
+.showcart1:hover{
+  color: orangered;
+}
+
+@keyframes animate {
+  50% {
+      transform: translate(80%, 38%);
+  }
+  100% {
+      transform: translate(80%, 30%);
+  }
+
+}
+
+
+
+</style>
+
+<div id="loader-wrapper">
+  <div id="loader">
+      <h1 style="color: orangered;" class="bud">Welcome!!!</h1>
+      <i style="color: orangered; font-size:100px;" class="fa fa-cog"></i>
+  </div>
+  <div class="loader-section section-left">
+      <marquee direction="left">
+          <h1 style="color: rgb(18, 139, 238);">You are Welcome here @
+              <span style="color: orangered;"><b> engisolE-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+  <div class="loader-section section-right">
+      <marquee direction="right">
+          <h1 style="color: rgb(18, 139, 238);">Your most efficient fastest and user friendly
+              <span style="color: orangered;"><b> E-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+</div>
+
+<main class="homalone">
+
+  <div class="container" style="max-width: 1000px">
+    <div class="row">
+      <div class="album py-5 ">
+    
+    <div class="alert alert-primary fw600 rounded-0 border-0 py-3" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-info-circle me-2"
+        viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+        <path
+          d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+      </svg>
+      COVID-19 - <u>Click here for our latest updates</u> on our stores, website and contact centre. Thank you for
+      your patience and support.
+    </div>
+    <div class="showcart1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
+        <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
+      </svg>
+      <span class="fs15 fw500">e-commerceStore</span>
+  </div>
+  </div>
+</div>
+    <div class="container">
+      <div class="row">
+        <div class="album py-5">
+          <div class="pb-3">
+            <h1 class="h3">Popular</h1>
+          </div>
+          {% if not products %}
+           <div class="col-12">There are currently no products active</div>
+         {% else %}
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+            {% for product in products %}
+            <div class="des col">
+              <div class="des card border-0">
+                {% for image in product.product_image.all %}
+                {% if image.is_feature%}
+                <img class="img-fluid" width="400px" alt="Responsive image" src="{{ image.image.url }}"
+                alt="{{ image.image.alt_text }}">
+              {% endif %}
+              {% endfor %}
+                <div class="des card-body px-0">
+                  <p class="des card-text">
+                    <a class="des text-orange text-decoration-none"
+                      href="{{ product.get_absolute_url }}">{{ product.title|slice:":50" }}...</a>
+                  </p>
+                  <div class="des fw-bold">${{product.regular_price}}</div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div><br>
+<div class="cont">
+      <div class="des myslides row gap-lg-0">
+        <div class="des col-md-7 col-lg-7 p-0">
+          <div class="des card mb-3 border-0">
+          <div class="des row g-0">
+              <div class="des col-md-12">
+                 <div class="des card-body p-1">
+        <div class="des imag1">
+       </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+  <div class="d-grid gap-2">
+    <div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+  <h1>Hello World!, Welcome</h1>
+  <span class="milk"></span><br>
+  <p>Welcome to your number 1 e-commerce store, engisolE-commerceStore
+    A site where we help build products for ordering, buying & monitoring
+    your products, wishlist and accounts dashboard payments, a good user friendly store.
+      </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag2">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>A look at engisol</h1>
+<span class="milk"></span><br>
+<p>Engisol is an engineering body which aimed at building solutions in technology, for easy man's
+  use in aspect of software engineering, other forms of engineering, education, Tutoring
+  & counselling.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag3">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>A look at engisolE-commerceStore</h1>
+<span class="milk"></span><br>
+<p>A top-notch store where you can order our useful consumer and work products.
+  Easy shopping as we love.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag4">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Order Me Now!!!</h1>
+<span class="milk"></span><br>
+<p>Funny right, yeah order now , with our site, you can make orders,offer online payment
+  easily, engage in monitoring your orders and shop better from our store.
+  Let's have a look at our package.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag5">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Technology Top-notch skills</h1>
+<span class="milk"></span><br>
+<p>You can order exclusive top notch, brain tasking and challenging engineering/technology 
+  skills to make money and build your career., how great! smiles!!!.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag6">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Guide of Programming/Coding</h1>
+<span class="milk"></span><br>
+<p>Coding/Programming is fun we have tutorials to put and engage you to start your career to become 
+  a software engineer expert, how great this is.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag7">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Engineering Books & Stationaries</h1>
+<span class="milk"></span><br>
+<p>You can order exclusive top notch, brain tasking and challenging widely read engineering
+  disciplines to build your engineering/technology career, how great! smiles!!!.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag8">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>engisol-Ict products</h1>
+<span class="milk"></span><br>
+<p>We have in stock for ordering high quality gadgets to ease your career workflow,
+  easy work flexible and easy life for your journey as to any work purpose.
+  Ict makes you cool.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag9">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Nourishing Foods</h1>
+<span class="milk"></span><br>
+<p>Foods that keeps you nourished and fresh, why not order now!!,
+  cause good health is wealth and its our priority at engisolE-commerceStore
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag10">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Science/Tech Tutorials</h1>
+<span class="milk"></span><br>
+<p>We have in stock for upcoming future scientist/technologist & engineers who are in secondary schools
+  or about entering into university,jamb,post-utme and other bodies waec. Engisol trains and keeps you well groomed
+  to aid your academic success with our tutorials isnt this lovely.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag11">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Payment galore</h1>
+<span class="milk"></span><br>
+<p>Money coming, with our application, you can order our goods and have an easy payment schedule with several
+  options for payment, paypal, stripe, credit/debit. We ensure your payment is valid and controlled, Thank you.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="des myslides row gap-lg-0">
+  <div class="des col-md-7 col-lg-7 p-0">
+    <div class="des card mb-3 border-0">
+    <div class="des row g-0">
+        <div class="des col-md-12">
+           <div class="des card-body p-1">
+  <div class="des imag12">
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="des col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+<div class="d-grid gap-2">
+<div class="d-flex d-flex-inline justify-content-between">
+<div class="des text-box">
+<h1>Hearty congratulations, smiles!!!</h1>
+<span class="milk"></span><br>
+<p>engisolE-commerceStore wishes you the very best and congratulations for signing up at your 
+  number 1 top-notch user-friendly e-commerce store, we deliver the best services.
+  do explore, thank you and Welcome once again!!! smiles!.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="des bg1  row row-cols-5 row-cols-lg-2 row-cols-lg-6 g-2">
+  <div class="des d-flex col anim">
+
+    <div class="des first mov1 card border-0">
+    </div><br>
+
+    <div class="des  mov2 card border-0">
+    </div><br>
+
+    <div class="des  mov3 card border-0">
+    </div><br>
+
+    <div class="des  mov4 card border-0">
+    </div><br>
+
+    <div class="des  mov5 card border-0">
+    </div>
+
+    <div class="des  mov6 card border-0">
+    </div>
+
+    <div class="des  mov8 card border-0">
+    </div>
+
+    <div class="des  mov9 card border-0">
+    </div>
+
+    <div class="des  mov10 card border-0">
+    </div>
+
+    <div class="des  mov11 card border-0">
+    </div>
+
+    <div class="des  mov12 card border-0">
+    </div>
+
+    <div class="des  mov13 card border-0">
+    </div>
+
+    <div class="des  mov14 card border-0">
+    </div>
+
+    <div class="des  mov15 card border-0">
+    </div>
+
+    <div class="des  mov16 card border-0">
+    </div>
+
+    <div class="des  mov17 card border-0">
+    </div>
+
+    <div class="des  mov18 card border-0">
+    </div>
+
+  </div>
+</div><br>
+
+<div class="des bg2  row row-cols-5 row-cols-lg-2 row-cols-lg-6 g-2">
+  <div class="des d-flex col anim1">
+
+    <div class="des second mov21 card border-0">
+    </div><br>
+
+    <div class="des mov22 card border-0">
+    </div><br>
+
+    <div class="des mov23 card border-0">
+    </div><br>
+
+    <div class="des mov24 card border-0">
+    </div><br>
+
+    <div class="des mov25 card border-0">
+    </div><br>
+
+      <div class="des mov26 card border-0">
+      </div><br>
+
+      <div class="des mov27 card border-0">
+      </div>
+
+      <div class="des mov28 card border-0">
+      </div>
+
+  </div>
+</div>
+
+    </div>
+  </main>
+
+  <script>
+    //page preloader
+
+$(document).ready(function() {
+
+  setTimeout(function() {
+      $('body').addClass('loaded');
+  }, 5000);
+
+});
+
+//light/dark mode theme
+document.querySelector('.checkbox').addEventListener('change',()=>{
+  document.querySelectorAll('body').forEach(ele=>{
+    ele.classList.toggle('night');
+  })
+  document.querySelectorAll('.des').forEach(ele=>{
+      ele.classList.toggle('night');
+    })
+});
+
+
+  </script>
+  
+{% endblock %}

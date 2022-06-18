@@ -1,0 +1,112 @@
+{% extends "../../store/base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+<style>
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .account-form input {
+        border: 2px solid #ccc;
+        height: calc(2em + .75rem + 2px);
+    }
+
+    .account-form input:focus {
+        border-color: #1497ff;
+        box-shadow: none;
+    }
+</style>
+
+<div id="loader-wrapper">
+    <div id="loader">
+        <h1 style="color: orangered;" class="bud">Welcome!!!</h1>
+        <i style="color: orangered; font-size:100px;" class="fa fa-cog"></i>
+    </div>
+    <div class="loader-section section-left">
+        <marquee direction="left">
+            <h1 style="color: rgb(18, 139, 238);">You are Welcome here @
+                <span style="color: orangered;"><b> engisolE-commerceStore </b> </span> 
+            </h1>
+        </marquee>
+    </div>
+    <div class="loader-section section-right">
+        <marquee direction="right">
+            <h1 style="color: rgb(18, 139, 238);">Your most efficient fastest and user friendly
+                <span style="color: orangered;"><b> E-commerceStore </b> </span> 
+            </h1>
+        </marquee>
+    </div>
+  </div>
+
+
+<div class="container-fluid" id="bg">
+    <div class="row no-gutter">
+        <div class="col-md-12">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-6  mx-auto">
+                            <form class="account-form p-4" action="{% url 'account:login' %}" method="post">
+
+                                {% csrf_token %}
+                                <h3 class="mb-4">Sign In</h3>
+
+                                {% if form.errors %}
+                                <div class="alert alert-primary" role="alert">
+                                    Error: Username or Password not correct!
+                                </div>
+                                {% endif %}
+
+                                <label class="form-label">{{ form.username.label}}</label>
+                                {{ form.username}}
+
+                                <label class="form-label">{{ form.password.label}}</label>
+                                {{ form.password}}
+                                <div class="d-grid gap-2">
+                                    <input type="hidden" name="next" value="{{ next }}">
+                                    <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Sign in
+                                    </button>
+                                </div>
+                                <p class="text-center pb-3">
+                                    <a href="{% url 'account:register' %}" class="c1">Create an account</a>
+                                </p>
+                            </form>
+                            <p class="small text-center pt-4">
+                                <a href="{% url 'account:pwdreset' %}" class="c2">Forgotten Password?
+                            </p>
+                            <p class="small text-center">
+                                <a href="{% url 'account:register' %}" class="c3">Help Center?</a>
+                            </p>
+                     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        setTimeout(function() {
+            $('body').addClass('loaded');
+        }, 5000);
+      
+      });
+
+    //light/dark mode theme
+document.querySelector('.checkbox').addEventListener('change',()=>{
+    document.querySelectorAll('body').forEach(ele=>{
+      ele.classList.toggle('night');
+    })
+    document.querySelectorAll('.des').forEach(ele=>{
+        ele.classList.toggle('night');
+      })
+  });
+
+  
+
+</script>
+{% endblock %}

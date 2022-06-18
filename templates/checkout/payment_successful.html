@@ -1,0 +1,66 @@
+{% extends "../store/base.html" %}
+{% load static %}
+{% block title %}Payment Successful{%endblock %}
+{% block content %}
+
+<div id="loader-wrapper">
+  <div id="loader">
+      <h1 style="color: orangered;" class="bud">Welcome!!!</h1>
+      <i style="color: orangered; font-size:100px;" class="fa fa-cog"></i>
+  </div>
+  <div class="loader-section section-left">
+      <marquee direction="left">
+          <h1 style="color: rgb(18, 139, 238);">You are Welcome here @
+              <span style="color: orangered;"><b> engisolE-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+  <div class="loader-section section-right">
+      <marquee direction="right">
+          <h1 style="color: rgb(18, 139, 238);">Your most efficient fastest and user friendly
+              <span style="color: orangered;"><b> E-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+</div>
+
+<main>
+    <div class="container">
+        <div class="col-12">
+          <h1 class="h2">Payment Successful</h1>
+        </div>
+        <div class="col-12">
+          <p>Order Summary</p>
+        </div>
+        <hr />
+        <div class="col-12">
+          <p>View all <a href="{% url 'account:user_orders'%}">orders</a></p>
+        </div>
+      </div>
+      
+      
+</main>
+
+<script>
+  $(document).ready(function() {
+
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 5000);
+  
+  });
+
+  //light/dark mode theme
+document.querySelector('.checkbox').addEventListener('change',()=>{
+  document.querySelectorAll('body').forEach(ele=>{
+    ele.classList.toggle('night');
+  })
+  document.querySelectorAll('.des').forEach(ele=>{
+      ele.classList.toggle('night');
+    })
+});
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "../store/base.html" %}
+{% block title %}Order-Page{% endblock %}
+{% block content %}
+
+<style>
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .account-form input {
+        border: 2px solid #ccc;
+        height: calc(2em + .75rem + 2px);
+    }
+
+    .account-form input:focus {
+        border-color: #1497ff;
+        box-shadow: none;
+    }
+</style>
+
+<div id="loader-wrapper">
+    <div id="loader">
+        <h1 style="color: orangered;" class="bud">Welcome!!!</h1>
+        <i style="color: orangered; font-size:100px;" class="fa fa-cog"></i>
+    </div>
+    <div class="loader-section section-left">
+        <marquee direction="left">
+            <h1 style="color: rgb(18, 139, 238);">You are Welcome here @
+                <span style="color: orangered;"><b> engisolE-commerceStore </b> </span> 
+            </h1>
+        </marquee>
+    </div>
+    <div class="loader-section section-right">
+        <marquee direction="right">
+            <h1 style="color: rgb(18, 139, 238);">Your most efficient fastest and user friendly
+                <span style="color: orangered;"><b> E-commerceStore </b> </span> 
+            </h1>
+        </marquee>
+    </div>
+  </div>
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-12">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-6  mx-auto">
+                            <div class="p-4">
+                                <h3 class="mb-4">Order has been placed</h3>
+                                <p>Check your email for confirmation</p>
+                                <a href="{% url 'account:user_orders' %}">See orders</a>
+                            </div>       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        setTimeout(function() {
+            $('body').addClass('loaded');
+        }, 5000);
+      
+      });
+
+      //light/dark mode theme
+document.querySelector('.checkbox').addEventListener('change',()=>{
+    document.querySelectorAll('body').forEach(ele=>{
+      ele.classList.toggle('night');
+    })
+    document.querySelectorAll('.des').forEach(ele=>{
+        ele.classList.toggle('night');
+      })
+  });
+
+
+</script>
+{% endblock %}

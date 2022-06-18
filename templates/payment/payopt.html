@@ -1,0 +1,66 @@
+{% extends "../store/base.html" %}
+{% load static %}
+{% block title %}Payment Option{% endblock %}
+{% block content %}
+
+<div id="loader-wrapper">
+  <div id="loader">
+      <h1 style="color: orangered;" class="bud">Welcome!!!</h1>
+      <i style="color: orangered; font-size:100px;" class="fa fa-cog"></i>
+  </div>
+  <div class="loader-section section-left">
+      <marquee direction="left">
+          <h1 style="color: rgb(18, 139, 238);">You are Welcome here @
+              <span style="color: orangered;"><b> engisolE-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+  <div class="loader-section section-right">
+      <marquee direction="right">
+          <h1 style="color: rgb(18, 139, 238);">Your most efficient fastest and user friendly
+              <span style="color: orangered;"><b> E-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+      <div class="col-md-12">
+        <h3 class="mb-3">Kindly choose your payment options</h3>
+        <div class="col-md-12">
+        <a href="{% url 'checkout:deliverychoices' %}"  role="button" aria-disabled="true">
+            <div class="storeimg3"></div>
+        </a>
+        <a href="{% url 'payment:cart' %}"  role="button" aria-disabled="true">
+            <div class="des storeimg2"></div>
+         </a>  
+        </div>                                          
+      </div>
+    </div>
+  </div>
+  
+<script>
+  $(document).ready(function() {
+
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 5000);
+  
+  });
+
+  //light/dark mode theme
+document.querySelector('.checkbox').addEventListener('change',()=>{
+  document.querySelectorAll('body').forEach(ele=>{
+    ele.classList.toggle('night');
+  })
+  document.querySelectorAll('.des').forEach(ele=>{
+      ele.classList.toggle('night');
+    })
+});
+
+
+</script>
+ 
+
+{% endblock %}

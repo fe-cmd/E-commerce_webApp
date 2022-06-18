@@ -1,0 +1,147 @@
+{% extends "../store/base.html" %}
+{% load static %}
+{% block title %}Payment Selection{%endblock %}
+{% block content %}
+
+<div id="loader-wrapper">
+  <div id="loader">
+      <h1 style="color: orangered;" class="bud">Welcome!!!</h1>
+      <i style="color: orangered; font-size:100px;" class="fa fa-cog"></i>
+  </div>
+  <div class="loader-section section-left">
+      <marquee direction="left">
+          <h1 style="color: rgb(18, 139, 238);">You are Welcome here @
+              <span style="color: orangered;"><b> engisolE-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+  <div class="loader-section section-right">
+      <marquee direction="right">
+          <h1 style="color: rgb(18, 139, 238);">Your most efficient fastest and user friendly
+              <span style="color: orangered;"><b> E-commerceStore </b> </span> 
+          </h1>
+      </marquee>
+  </div>
+</div>
+
+<main>
+    <div class="container">
+        <div class="col-12">
+          <h1 class="h2">Payment Selection</h1>
+        </div>
+        <div class="col-12">
+          <p>Please select your Payment Selection</p>
+        </div>
+        <hr />
+      </div>
+      
+      <div class="container">
+        <div class="row g-3">
+          <div class="col-md-4 col-lg-4 order-md-last p-0 order-3">
+            <div class="d-flex bd-highlight ms-0">
+              <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
+              <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="sub_total"
+                  class="fw-bold h5">{{cart.get_subtotal_price}}</span></div>
+            </div>
+            <div class="d-flex bd-highlight">
+              <div class="p-2 flex-grow-1 bd-highlight">Delivery Cost:</div>
+              <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="delivery_price"
+                  class="fw-bold h5">{{cart.get_delivery_price}}</span></div>
+            </div>
+            <div class="d-flex bd-highlight">
+              <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
+              <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="total"
+                  class="fw-bold h5">{{cart.get_total_price}}</span></div>
+            </div>
+          </div>
+          <div class="col-md-7 col-lg-8 pe-0 pe-md-5">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+      </div>
+</main>
+
+<script
+  src="https://www.paypal.com/sdk/js?client-id=AVsUUMIQu3-izfmZtJNnRWiimZZAlAs5gZFy48oljIgy_ZUUZRx8ZEBcIaSt2elyk9pTtu0xKNV07l9a"
+  data-sdk-integration-source="button-factory">
+</script>
+    <script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  var csrftoken = getCookie('csrftoken');
+
+
+
+  function initPayPalButton() {
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'paypal',
+
+      },
+    createOrder: function (data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            "amount": {
+              "currency_code": "USD",
+              "value": '{{cart.get_total_price}}'
+            }
+          }]
+        });
+      },
+    onApprove: function (data) {
+        var url = "{% url 'checkout:payment_complete' %}"
+        return fetch(url, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            'X-CSRFToken': csrftoken,
+          },
+          body: JSON.stringify({
+            orderID: data.orderID
+          })
+        }).then(function () {
+          location.href = "{% url 'checkout:payment_successful' %}";
+        })
+      },
+    }).render('#paypal-button-container');
+  }
+  initPayPalButton();
+
+$(document).ready(function() {
+
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 5000);
+  
+  });
+
+  //light/dark mode theme
+document.querySelector('.checkbox').addEventListener('change',()=>{
+  document.querySelectorAll('body').forEach(ele=>{
+    ele.classList.toggle('night');
+  })
+  document.querySelectorAll('.des').forEach(ele=>{
+      ele.classList.toggle('night');
+    })
+});
+
+
+
+    </script>
+
+{% endblock %}
