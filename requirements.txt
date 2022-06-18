@@ -33,6 +33,7 @@ paypalhttp==1.0.1
 Pillow==9.1.1
 platformdirs==2.5.2
 psycopg2==2.9.3
+psycopg2-binary==2.9.3
 pycodestyle==2.8.0
 pycparser==2.21
 pyflakes==2.4.0
