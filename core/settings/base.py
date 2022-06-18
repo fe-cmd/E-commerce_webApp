@@ -115,6 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CSRF_TRUSTED_ORIGINS = [' https://engisole-commercestore.herokuapp.com ']
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -154,10 +156,10 @@ LOGIN_URL = '/account/login/'
 #Email Engineering
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '158095e566a88f'
+EMAIL_HOST_PASSWORD = 'f89e692f7d7890'
+EMAIL_PORT = 2525
 EMAIL_USE_TLS: True
 
 EMAIL_USE_SSL: False
