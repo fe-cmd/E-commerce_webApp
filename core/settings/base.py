@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import django_heroku
 
-CSRF_TRUSTED_ORIGINS = [' https://engisole-commercestore.herokuapp.com ']
+CSRF_TRUSTED_ORIGINS = ['https://engisole-commercestore.herokuapp.com']
 
 env = environ.Env()
 environ.Env.read_env()
