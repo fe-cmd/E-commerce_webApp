@@ -59,7 +59,7 @@
 
   {% endfor %}
   {% else %}
-  <p class="card-text">No products have been added to your wishlist yet</p>
+  <p class="card-text">No products have been added to your wishlist yet <a href="{% url 'store:product_all' %}">Go back if you wanna add, thanks</a></p>
   {% endif %}
 
 
