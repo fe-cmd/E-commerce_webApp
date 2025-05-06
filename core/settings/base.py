@@ -14,9 +14,7 @@ import os
 import environ
 from dotenv import load_dotenv
 from pathlib import Path
-import django_heroku
 
-CSRF_TRUSTED_ORIGINS = ['https://engisole-commercestore.herokuapp.com']
 
 env = environ.Env()
 environ.Env.read_env()
@@ -62,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -97,9 +96,7 @@ DATABASES = {
     }
 }
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -133,7 +130,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/pictures/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures/')
-django_heroku.settings(locals())
 
 
 # Cart session ID
@@ -157,9 +153,9 @@ LOGIN_URL = '/account/login/'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '158095e566a88f'
-EMAIL_HOST_PASSWORD = 'f89e692f7d7890'
-EMAIL_PORT = 2525
+EMAIL_HOST_USER = '619e0e24ee8ff0'
+EMAIL_HOST_PASSWORD = '3e399737fd832c'
+EMAIL_PORT = '2525'
 EMAIL_USE_TLS: True
 
 EMAIL_USE_SSL: False
