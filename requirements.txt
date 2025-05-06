@@ -74,7 +74,6 @@ tzlocal==5.2
 uritools==4.0.2
 urllib3==1.26.18
 validate-email-address==1
-vboxapi==1.0
 w3lib==2.1.2
 webdriver-manager==4.0.2
 webencodings==0.5.1
