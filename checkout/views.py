@@ -72,7 +72,6 @@ def payment_selection(request):
 # PayPal
 ####
 
-from paypalcheckoutsdk.orders import OrdersGetRequest
 
 from .paypal import PayPalClient
 
@@ -80,27 +79,33 @@ from .paypal import PayPalClient
 @login_required
 def payment_complete(request):
     PPClient = PayPalClient()
-
     body = json.loads(request.body)
-    data = body["orderID"]
+    payment_id = body.get("orderID")  # This should match the PayPal payment ID returned after approval
     user_id = request.user.id
 
-    requestorder = OrdersGetRequest(data)
-    response = PPClient.client.execute(requestorder)
+    payment = PPClient.get_payment(payment_id)
 
-    total_paid = response.result.purchase_units[0].amount.value
+    if not payment or not payment.success():
+        return JsonResponse({"error": "Payment not found or failed"}, status=400)
+
+    # Extract details
+    payer_info = payment.payer.payer_info
+    transactions = payment.transactions[0]
+    shipping = transactions.item_list.shipping_address
+
+    total_paid = transactions.amount.total
 
     cart = Cart(request)
     order = Order.objects.create(
         user_id=user_id,
-        full_name=response.result.purchase_units[0].shipping.name.full_name,
-        email=response.result.payer.email_address,
-        address1=response.result.purchase_units[0].shipping.address.address_line_1,
-        address2=response.result.purchase_units[0].shipping.address.admin_area_2,
-        postal_code=response.result.purchase_units[0].shipping.address.postal_code,
-        country_code=response.result.purchase_units[0].shipping.address.country_code,
-        total_paid=response.result.purchase_units[0].amount.value,
-        order_key=response.result.id,
+        full_name=f"{payer_info.first_name} {payer_info.last_name}",
+        email=payer_info.email,
+        address1=shipping.line1,
+        address2=shipping.city,
+        postal_code=shipping.postal_code,
+        country_code=shipping.country_code,
+        total_paid=total_paid,
+        order_key=payment.id,
         payment_option="paypal",
         billing_status=True,
     )
@@ -110,7 +115,6 @@ def payment_complete(request):
         OrderItem.objects.create(order_id=order_id, product=item["product"], price=item["price"], quantity=item["qty"])
 
     return JsonResponse("Payment completed!", safe=False)
-
 
 @login_required
 def payment_successful(request):
