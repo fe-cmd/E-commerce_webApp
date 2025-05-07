@@ -15,6 +15,9 @@ import environ
 from dotenv import load_dotenv
 from pathlib import Path
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://e-commerce-webapp-wsqv.onrender.com"
+]
 
 env = environ.Env()
 environ.Env.read_env()
